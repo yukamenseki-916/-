@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="物語を歩んだ探索者たちの記録を収めるアーカイブ。">
+  <title>探索者記録庫</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #10172b;
+      --ink-light: #1a2540;
+      --gold: #c5a66a;
+      --gold-light: #e3d2a5;
+      --paper: #f3eee3;
+      --white: #fffdf7;
+      --muted: #b7b7bd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: "Noto Serif JP", serif;
+      line-height: 1.9;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .site-header {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 22px 6%;
+      border-bottom: 1px solid rgba(197, 166, 106, 0.3);
+    }
+
+    .menu-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border: 0;
+      background: transparent;
+      color: var(--paper);
+      cursor: pointer;
+      letter-spacing: 0.15em;
+    }
+
+    .menu-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 27px;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 27px;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.2s;
+    }
+
+    .menu-icon span:last-child {
+      width: 18px;
+    }
+
+    .menu-button:hover .menu-icon span:last-child {
+      width: 27px;
+    }
+
+    .brand {
+      color: var(--gold-light);
+      font-size: 13px;
+      letter-spacing: 0.18em;
+    }
+
+    .menu-panel {
+      position: absolute;
+      top: 82px;
+      left: 5%;
+      display: none;
+      width: min(310px, 90%);
+      padding: 20px;
+      border: 1px solid var(--gold);
+      background: rgba(16, 23, 43, 0.98);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .menu-panel.open {
+      display: block;
+    }
+
+    .menu-panel a {
+      display: block;
+      padding: 12px 8px;
+      border-bottom: 1px solid rgba(197, 166, 106, 0.2);
+      font-size: 14px;
+    }
+
+    .menu-panel a:hover {
+      color: var(--gold-light);
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 740px;
+      min-height: 100svh;
+      overflow: hidden;
+      padding: 130px 8% 100px;
+      background:
+        radial-gradient(ellipse at 78% 45%, rgba(75, 79, 103, 0.3), transparent 48%),
+        linear-gradient(115deg, #10172b 10%, #17213a 62%, #25283b 100%);
+    }
+
+    .hero::before {
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(197, 166, 106, 0.2);
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(600px, 100%);
+    }
+
+    .eyebrow {
+      margin: 0 0 22px;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+    }
+
+    .hero h1 {
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(36px, 6vw, 66px);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      line-height: 1.65;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--gold-light);
+      font-size: 0.48em;
+      letter-spacing: 0.25em;
+    }
+
+    .hero-description {
+      max-width: 430px;
+      margin: 26px 0 35px;
+      color: #d0d0d5;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      line-height: 2.5;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 35px;
+      min-width: 230px;
+      padding: 13px 18px;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .hero-link:hover {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    .hero-link span {
+      font-size: 18px;
+    }
+
+    .hero-number {
+      position: absolute;
+      right: 8%;
+      bottom: 10%;
+      color: rgba(227, 210, 165, 0.5);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      writing-mode: vertical-rl;
+    }
+
+    .intro {
+      padding: 100px 8%;
+      background: var(--paper);
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .section-label {
+      margin: 0 0 14px;
+      color: #8e7445;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+    }
+
+    .intro h2 {
+      margin: 0 0 28px;
+      font-size: clamp(23px, 4vw, 32px);
+      font-weight: 500;
+      letter-spacing: 0.15em;
+    }
+
+    .intro p:not(.section-label) {
+      max-width: 590px;
+      margin: 0 auto;
+      color: #51515a;
+      font-size: 13px;
+      line-height: 2.6;
+    }
+
+    .intro-link {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 10px 25px;
+      border-bottom: 1px solid #9b804d;
+      color: #725a31;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+    }
+
+    .site-footer {
+      padding: 25px 6%;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .site-header {
+        padding: 18px 7%;
+      }
+
+      .brand {
+        max-width: 150px;
+        font-size: 10px;
+        text-align: right;
+      }
+
+      .hero {
+        min-height: 720px;
+        padding: 120px 9% 100px;
+      }
+
+      .hero::before {
+        inset: 10px;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 9vw, 46px);
+      }
+
+      .hero-description {
+        font-size: 12px;
+      }
+
+      .hero-number {
+        right: 7%;
+        bottom: 5%;
+      }
+
+      .intro {
+        padding: 75px 9%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <button
+      class="menu-button"
+      id="menuButton"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menuPanel"
+    >
+      <span class="menu-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </span>
+      <span>MENU</span>
+    </button>
+
+    <a class="brand" href="index.html">EXPLORER ARCHIVE</a>
+
+    <nav class="menu-panel" id="menuPanel" aria-label="メインメニュー">
+      <a href="index.html">トップページ</a>
+      <a href="explorers.html">探索者一覧</a>
+      <a href="about.html">この記録庫について</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">EXPLORER ARCHIVE</p>
+
+        <h1>
+          探索者記録庫
+          <span>それぞれの物語、その記録。</span>
+        </h1>
+
+        <p class="hero-description">
+          出会った人々。歩んだ物語。<br>
+          それぞれの世界で生きた探索者たちの記録を、<br>
+          ここに収めています。
+        </p>
+
+        <a class="hero-link" href="explorers.html">
+          探索者一覧を見る
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="hero-number" aria-hidden="true">
+        ARCHIVE / RECORDS
+      </div>
+    </section>
+
+    <section class="intro">
+      <p class="section-label">ABOUT THE ARCHIVE</p>
+      <h2>物語を歩んだ、彼らの記録</h2>
+
+      <p>
+        この場所は、TRPGの物語を歩んできた探索者たちを
+        記録するためのアーカイブです。
+        それぞれの人物が持つ背景や歩んだ軌跡を、
+        いつでも振り返ることができるように。
+      </p>
+
+      <a class="intro-link" href="explorers.html">
+        記録をたどる →
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>EXPLORER ARCHIVE</p>
+    <p>All records are kept with the permission of their creators.</p>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const menuPanel = document.getElementById("menuPanel");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuPanel.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !menuButton.contains(event.target) &&
+        !menuPanel.contains(event.target)
+      ) {
+        menuPanel.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+      }
+    });
+  </script>
+</body>
+</html>
