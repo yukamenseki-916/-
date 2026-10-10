@@ -60,24 +60,143 @@
       border-bottom: 1px solid rgba(197, 166, 106, 0.3);
     }
 
-    .menu-button {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 0;
-      border: 0;
-      background: transparent;
-      color: var(--paper);
-      cursor: pointer;
-      letter-spacing: 0.15em;
-    }
+    
+/* ハンバーガーメニュー */
+.menu-button {
+  position: relative;
+  z-index: 102;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: var(--paper);
+  cursor: pointer;
+  letter-spacing: 0.18em;
+}
 
-    .menu-icon {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: 27px;
-    }
+.menu-icon {
+  position: relative;
+  display: block;
+  width: 27px;
+  height: 20px;
+}
+
+.menu-icon span {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 27px;
+  height: 1px;
+  background: var(--gold);
+  transition: transform 0.3s ease, top 0.3s ease, width 0.3s ease;
+}
+
+.menu-icon span:first-child {
+  top: 5px;
+}
+
+.menu-icon span:last-child {
+  top: 13px;
+  width: 18px;
+}
+
+.menu-button:hover .menu-icon span:last-child {
+  width: 27px;
+}
+
+/* メニューを開いた時は「×」に変化 */
+.menu-button[aria-expanded="true"] .menu-icon span:first-child {
+  top: 9px;
+  transform: rotate(45deg);
+}
+
+.menu-button[aria-expanded="true"] .menu-icon span:last-child {
+  top: 9px;
+  width: 27px;
+  transform: rotate(-45deg);
+}
+
+/* 背景の暗いオーバーレイ */
+.menu-overlay {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 左側からスライドするメニュー */
+.menu-panel {
+  position: fixed;
+  z-index: 101;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 320px;
+  max-width: 84vw;
+  padding: 105px 30px 35px;
+  overflow-y: auto;
+  border-right: 1px solid rgba(197, 166, 106, 0.65);
+  background: rgba(16, 23, 43, 0.98);
+  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.25);
+  transform: translateX(-105%);
+  visibility: hidden;
+  transition: transform 0.35s ease, visibility 0.35s ease;
+}
+
+.menu-panel.open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/* メニューの見出し */
+.menu-heading {
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(197, 166, 106, 0.45);
+  text-align: center;
+}
+
+.menu-heading p {
+  margin: 0;
+  color: var(--gold-light);
+  font-size: 16px;
+  letter-spacing: 0.15em;
+}
+
+.menu-heading span {
+  display: block;
+  margin-top: 7px;
+  color: #a8adbb;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+
+/* メニューのリンク */
+.menu-panel a {
+  display: block;
+  padding: 15px 8px;
+  border-bottom: 1px solid rgba(197, 166, 106, 0.18);
+  color: var(--paper);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  transition: color 0.25s ease, padding-left 0.25s ease;
+}
+
+.menu-panel a:hover {
+  padding-left: 16px;
+  color: var(--gold-light);
+}
+
 
     .menu-icon span {
       display: block;
@@ -91,30 +210,10 @@
       width: 18px;
     }
 
-    .menu-button:hover .menu-icon span:last-child {
-      width: 27px;
-    }
-
     .brand {
       color: var(--gold-light);
       font-size: 13px;
       letter-spacing: 0.18em;
-    }
-
-    .menu-panel {
-      position: absolute;
-      top: 82px;
-      left: 5%;
-      display: none;
-      width: min(310px, 90%);
-      padding: 20px;
-      border: 1px solid var(--gold);
-      background: rgba(16, 23, 43, 0.98);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
-    }
-
-    .menu-panel.open {
-      display: block;
     }
 
     .menu-panel a {
