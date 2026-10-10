@@ -197,34 +197,10 @@
   color: var(--gold-light);
 }
 
-
-    .menu-icon span {
-      display: block;
-      width: 27px;
-      height: 1px;
-      background: var(--gold);
-      transition: width 0.2s;
-    }
-
-    .menu-icon span:last-child {
-      width: 18px;
-    }
-
     .brand {
       color: var(--gold-light);
       font-size: 13px;
       letter-spacing: 0.18em;
-    }
-
-    .menu-panel a {
-      display: block;
-      padding: 12px 8px;
-      border-bottom: 1px solid rgba(197, 166, 106, 0.2);
-      font-size: 14px;
-    }
-
-    .menu-panel a:hover {
-      color: var(--gold-light);
     }
 
     .hero {
@@ -424,12 +400,27 @@
 
     <a class="brand" href="index.html">EXPLORER ARCHIVE</a>
 
-    <nav class="menu-panel" id="menuPanel" aria-label="メインメニュー">
-      <a href="index.html">トップページ</a>
+    
+    <nav class="menu-panel" id="menuPanel" aria-label="メインメニュー" inert>
+      <div class="menu-heading">
+        <div class="menu-flower" aria-hidden="true">✿</div>
+        <p>探索者図鑑</p>
+        <span>EXPLORER ARCHIVE</span>
+      </div>
+
+      <a href="index.html">ホーム</a>
       <a href="explorers.html">探索者一覧</a>
-      <a href="about.html">この記録庫について</a>
+      <a href="about.html">このサイトについて</a>
+
+      <div class="menu-footer">
+        それぞれの物語を、ここに。
+        <span>EXPLORER ARCHIVE</span>
+      </div>
     </nav>
   </header>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+
 
   <main>
     <section class="hero">
@@ -481,23 +472,41 @@
   </footer>
 
   <script>
-    const menuButton = document.getElementById("menuButton");
-    const menuPanel = document.getElementById("menuPanel");
+    
+const menuButton = document.getElementById("menuButton");
+const menuPanel = document.getElementById("menuPanel");
+const menuOverlay = document.getElementById("menuOverlay");
 
-    menuButton.addEventListener("click", () => {
-      const isOpen = menuPanel.classList.toggle("open");
-      menuButton.setAttribute("aria-expanded", String(isOpen));
-    });
+function setMenuOpen(isOpen) {
+  menuPanel.classList.toggle("open", isOpen);
+  menuOverlay.classList.toggle("open", isOpen);
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  menuPanel.inert = !isOpen;
+}
 
-    document.addEventListener("click", (event) => {
-      if (
-        !menuButton.contains(event.target) &&
-        !menuPanel.contains(event.target)
-      ) {
-        menuPanel.classList.remove("open");
-        menuButton.setAttribute("aria-expanded", "false");
-      }
-    });
+menuButton.addEventListener("click", () => {
+  const isOpen =
+    menuButton.getAttribute("aria-expanded") === "true";
+
+  setMenuOpen(!isOpen);
+});
+
+menuOverlay.addEventListener("click", () => {
+  setMenuOpen(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setMenuOpen(false);
+  }
+});
+
+menuPanel.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    setMenuOpen(false);
+  });
+});
+
   </script>
 </body>
 </html>
