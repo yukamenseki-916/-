@@ -213,18 +213,25 @@
       letter-spacing: 0.18em;
     }
 
-    .hero {
-      position: relative;
-      display: flex;
-      align-items: center;
-      min-height: 740px;
-      min-height: 100svh;
-      overflow: hidden;
-      padding: 130px 8% 100px;
-      background:
-        radial-gradient(ellipse at 78% 45%, rgba(75, 79, 103, 0.3), transparent 48%),
-        linear-gradient(115deg, #10172b 10%, #17213a 62%, #25283b 100%);
-    }
+    
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 740px;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: 130px 8% 100px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(16, 23, 43, 0.72) 0%,
+      rgba(16, 23, 43, 0.40) 55%,
+      rgba(16, 23, 43, 0.12) 100%
+    ),
+    url("main-visual.png") center center / cover no-repeat;
+}
+
 
     .hero::before {
       position: absolute;
