@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="物語を歩んだ探索者たちの記録目録。">
+  <title>探索者一覧 | 探索者記録庫</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #10172b;
+      --ink-light: #1a2540;
+      --gold: #c5a66a;
+      --gold-light: #e3d2a5;
+      --paper: #f3eee3;
+      --white: #fffdf7;
+      --muted: #b7b7bd;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: "Noto Serif JP", serif;
+      line-height: 1.9;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select { font: inherit; }
+
+    /* ヘッダー */
+    .site-header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 6%;
+      border-bottom: 1px solid rgba(197,166,106,.3);
+      background: var(--ink);
+    }
+
+    .menu-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border: 0;
+      background: transparent;
+      color: var(--paper);
+      cursor: pointer;
+      letter-spacing: .18em;
+    }
+
+    .menu-icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 27px;
+      height: 12px;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 27px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .brand {
+      color: var(--gold-light);
+      font-size: 12px;
+      letter-spacing: .16em;
+    }
+
+    .menu-panel {
+      position: fixed;
+      z-index: 101;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 320px;
+      max-width: 84vw;
+      padding: 100px 28px 35px;
+      overflow-y: auto;
+      background: #1a2540;
+      border-right: 1px solid rgba(197,166,106,.6);
+      transform: translateX(-105%);
+      visibility: hidden;
+      transition: transform .3s ease, visibility .3s ease;
+    }
+
+    .menu-panel.open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .menu-heading {
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(197,166,106,.4);
+      text-align: center;
+    }
+
+    .menu-heading p {
+      margin: 0;
+      color: var(--gold-light);
+      letter-spacing: .12em;
+    }
+
+    .menu-heading span {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: .2em;
+    }
+
+    .menu-panel a {
+      display: block;
+      padding: 13px 5px;
+      border-bottom: 1px solid rgba(197,166,106,.16);
+      font-size: 13px;
+      letter-spacing: .1em;
+    }
+
+    .menu-button,
+    .menu-panel { isolation: isolate; }
+
+    /* ページ見出し */
+    .page-heading {
+      position: relative;
+      padding: 75px 8% 65px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(197,166,106,.25);
+      background:
+        radial-gradient(ellipse at 85% 20%, rgba(91,79,111,.28), transparent 45%),
+        linear-gradient(120deg, #10172b, #1a2540);
+    }
+
+    .page-heading::before {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(197,166,106,.18);
+      content: "";
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 15px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: .3em;
+    }
+
+    .page-heading h1 {
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(28px, 5vw, 43px);
+      font-weight: 500;
+      letter-spacing: .16em;
+    }
+
+    .heading-subtitle {
+      margin: 10px 0 0;
+      color: var(--gold-light);
+      font-size: 12px;
+      letter-spacing: .16em;
+    }
+
+    .heading-description {
+      margin: 24px 0 0;
+      color: #c9cad2;
+      font-size: 12px;
+      letter-spacing: .06em;
+    }
+
+    /* 目録本体 */
+    .catalog {
+      min-height: 55vh;
+      padding: 65px 8% 100px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .catalog-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .catalog-label {
+      margin: 0;
+      color: #8e7445;
+      font-size: 10px;
+      letter-spacing: .24em;
+    }
+
+    .catalog-title {
+      margin: 5px 0 0;
+      font-size: 23px;
+      font-weight: 500;
+      letter-spacing: .1em;
+    }
+
+    .record-count {
+      color: #8e7445;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .search-area {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(150px, .45fr);
+      gap: 12px;
+      margin-bottom: 35px;
+    }
+
+    .search-area input,
+    .search-area select {
+      width: 100%;
+      min-width: 0;
+      padding: 13px 15px;
+      border: 1px solid #d5cbb8;
+      border-radius: 0;
+      outline: none;
+      background: #fffdf7;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .search-area input:focus,
+    .search-area select:focus {
+      border-color: #9b804d;
+    }
+
+    .search-area input::placeholder {
+      color: #99928a;
+    }
+
+    /* 探索者カード */
+    .explorer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .explorer-card {
+      display: block;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid #d9cfbd;
+      background: rgba(255,253,247,.8);
+      transition: border-color .25s, transform .25s;
+    }
+
+    .explorer-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+
+    .portrait {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 35%, rgba(197,166,106,.16), transparent 55%),
+        linear-gradient(145deg, #202b46, #10172b);
+      color: var(--gold-light);
+    }
+
+    .portrait::before {
+      position: absolute;
+      inset: 9px;
+      border: 1px solid rgba(197,166,106,.35);
+      content: "";
+    }
+
+    .portrait-mark {
+      font-size: 34px;
+      opacity: .8;
+    }
+
+    .portrait-caption {
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      left: 14px;
+      color: rgba(227,210,165,.75);
+      font-size: 8px;
+      letter-spacing: .2em;
+      text-align: center;
+    }
+
+    .card-info {
+      padding: 15px 5px 7px;
+    }
+
+    .card-number {
+      margin: 0;
+      color: #8e7445;
+      font-size: 9px;
+      letter-spacing: .2em;
+    }
+
+    .card-name {
+      margin: 5px 0 8px;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      overflow-wrap: anywhere;
+    }
+
+    .card-meta {
+      margin: 0;
+      color: #77716a;
+      font-size: 10px;
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
+
+    .card-arrow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 9px;
+      border-top: 1px solid #e5dccd;
+      color: #8e7445;
+      font-size: 10px;
+      letter-spacing: .1em;
+    }
+
+    .empty-state {
+      padding: 65px 15px;
+      border-top: 1px solid #d5cbb8;
+      border-bottom: 1px solid #d5cbb8;
+      text-align: center;
+    }
+
+    .empty-mark {
+      color: #a38a5b;
+      font-size: 27px;
+    }
+
+    .empty-state h3 {
+      margin: 12px 0;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: .1em;
+    }
+
+    .empty-state p {
+      margin: 0;
+      color: #77716a;
+      font-size: 12px;
+    }
+
+    .site-footer {
+      padding: 25px 6%;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .site-header { padding: 18px 7%; }
+      .brand { font-size: 10px; }
+      .page-heading { padding: 65px 8% 50px; }
+      .catalog { padding: 45px 6% 70px; }
+      .explorer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .explorer-card { padding: 8px; }
+      .card-name { font-size: 14px; }
+      .search-area { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 360px) {
+      .explorer-grid { grid-template-columns: 1fr; }
+      .portrait { aspect-ratio: 5 / 4; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <button class="menu-button" id="menuButton"
+      type="button" aria-expanded="false" aria-controls="menuPanel">
+      <span class="menu-icon" aria-hidden="true">
+        <span></span><span></span>
+      </span>
+      <span>MENU</span>
+    </button>
+
+    <a class="brand" href="index.html">EXPLORER ARCHIVE</a>
+
+    <nav class="menu-panel" id="menuPanel" aria-label="メインメニュー" inert>
+      <div class="menu-heading">
+        <p>探索者図鑑</p>
+        <span>EXPLORER ARCHIVE</span>
+      </div>
+      <a href="index.html">ホーム</a>
+      <a href="explorers.html">探索者一覧</a>
+      <a href="about.html">このサイトについて</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-heading">
+      <p class="eyebrow">EXPLORER ARCHIVE / CATALOG</p>
+      <h1>探索者一覧</h1>
+      <p class="heading-subtitle">物語を歩んだ者たちの目録</p>
+      <p class="heading-description">
+        それぞれの記録をたどり、その人物が歩んだ物語へ。
+      </p>
+    </section>
+
+    <section class="catalog">
+      <div class="catalog-top">
+        <div>
+          <p class="catalog-label">THE RECORDS</p>
+          <h2 class="catalog-title">記録目録</h2>
+        </div>
+        <p class="record-count" id="recordCount">0 RECORDS</p>
+      </div>
+
+      <div class="search-area">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="名前・シナリオ名で検索"
+          aria-label="名前・シナリオ名で検索"
+        >
+        <select id="scenarioFilter" aria-label="シナリオで絞り込む">
+          <option value="">すべてのシナリオ</option>
+        </select>
+      </div>
+
+      <div class="explorer-grid" id="explorerGrid"></div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-mark" aria-hidden="true">✿</div>
+        <h3>記録は、これから。</h3>
+        <p>探索者たちの物語を、順次収めていきます。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>EXPLORER ARCHIVE</p>
+    <p>All records are kept with the permission of their creators.</p>
+  </footer>
+
+  <script>
+    /*
+      探索者を追加するときは、この配列に記録を追加します。
+      portrait: 画像ファイルのパス
+      scenarios: 参加したシナリオ名
+      url: 詳細ページのファイル名
+    */
+    const explorers = [
+      /*
+      {
+        id: "001",
+        name: "探索者名",
+        description: "職業などの短い紹介",
+        scenarios: ["シナリオ名"],
+        portrait: "images/portrait.png",
+        url: "characters/001.html"
+      }
+      */
+    ];
+
+    const grid = document.getElementById("explorerGrid");
+    const emptyState = document.getElementById("emptyState");
+    const searchInput = document.getElementById("searchInput");
+    const scenarioFilter = document.getElementById("scenarioFilter");
+    const recordCount = document.getElementById("recordCount");
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function setupScenarioFilter() {
+      const scenarios = [...new Set(
+        explorers.flatMap(person => person.scenarios || [])
+      )].sort();
+
+      scenarios.forEach(scenario => {
+        const option = document.createElement("option");
+        option.value = scenario;
+        option.textContent = scenario;
+        scenarioFilter.appendChild(option);
+      });
+    }
+
+    function renderExplorers() {
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedScenario = scenarioFilter.value;
+
+      const filtered = explorers.filter(person => {
+        const searchable = [
+          person.name,
+          person.description,
+          ...(person.scenarios || [])
+        ].join(" ").toLowerCase();
+
+        const matchesQuery = searchable.includes(query);
+        const matchesScenario = !selectedScenario ||
+          (person.scenarios || []).includes(selectedScenario);
+
+        return matchesQuery && matchesScenario;
+      });
+
+      recordCount.textContent = `${filtered.length} RECORDS`;
+      grid.innerHTML = "";
+
+      filtered.forEach(person => {
+        const card = document.createElement("a");
+        card.className = "explorer-card";
+        card.href = person.url || "#";
+        card.setAttribute("aria-label", `${person.name}の記録`);
+
+        const portrait = person.portrait
+          ? `<img src="${escapeHTML(person.portrait)}"
+               alt="${escapeHTML(person.name)}の立ち絵"
+               style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">`
+          : `<span class="portrait-mark" aria-hidden="true">✿</span>
+             <span class="portrait-caption">EXPLORER RECORD</span>`;
+
+        const scenarios = (person.scenarios || [])
+          .map(escapeHTML).join(" ／ ");
+
+        card.innerHTML = `
+          <div class="portrait">${portrait}</div>
+          <div class="card-info">
+            <p class="card-number">FILE ${escapeHTML(person.id)}</p>
+            <h3 class="card-name">${escapeHTML(person.name)}</h3>
+            <p class="card-meta">${escapeHTML(person.description || "")}</p>
+            <p class="card-meta">${scenarios}</p>
+            <div class="card-arrow">
+              <span>記録を読む</span><span aria-hidden="true">→</span>
+            </div>
+          </div>
+        `;
+
+        if (!person.url) {
+          card.addEventListener("click", event => event.preventDefault());
+          card.setAttribute("aria-disabled", "true");
+        }
+
+        grid.appendChild(card);
+      });
+
+      emptyState.hidden = filtered.length > 0;
+
+      if (explorers.length > 0 && filtered.length === 0) {
+        emptyState.querySelector("h3").textContent = "該当する記録がありません";
+        emptyState.querySelector("p").textContent =
+          "検索語やシナリオ名を変更してお試しください。";
+      } else {
+        emptyState.querySelector("h3").textContent = "記録は、これから。";
+        emptyState.querySelector("p").textContent =
+          "探索者たちの物語を、順次収めていきます。";
+      }
+    }
+
+    searchInput.addEventListener("input", renderExplorers);
+    scenarioFilter.addEventListener("change", renderExplorers);
+
+    setupScenarioFilter();
+    renderExplorers();
+
+    const menuButton = document.getElementById("menuButton");
+    const menuPanel = document.getElementById("menuPanel");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuPanel.classList.toggle("open", !isOpen);
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuPanel.inert = isOpen;
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        menuPanel.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuPanel.inert = true;
+      }
+    });
+
+    menuPanel.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        menuPanel.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuPanel.inert = true;
+      });
+    });
+  </script>
+</body>
+</html>
