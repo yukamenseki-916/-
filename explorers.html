@@ -43,6 +43,7 @@
 
     
 /* ヘッダー */
+
 .site-header {
   position: absolute;
   z-index: 103;
@@ -57,33 +58,62 @@
   background: var(--ink);
 }
 
+    
+.menu-button {
+  position: relative;
+  z-index: 102;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: var(--paper);
+  cursor: pointer;
+  letter-spacing: 0.18em;
+}
 
-    .menu-button {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 0;
-      border: 0;
-      background: transparent;
-      color: var(--paper);
-      cursor: pointer;
-      letter-spacing: .18em;
-    }
+.menu-icon {
+  position: relative;
+  display: block;
+  width: 27px;
+  height: 20px;
+}
 
-    .menu-icon {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 27px;
-      height: 12px;
-    }
+.menu-icon span {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 27px;
+  height: 1px;
+  background: var(--gold);
+  transition: transform 0.3s ease, top 0.3s ease, width 0.3s ease;
+}
 
-    .menu-icon span {
-      display: block;
-      width: 27px;
-      height: 1px;
-      background: var(--gold);
-    }
+.menu-icon span:first-child {
+  top: 5px;
+}
+
+.menu-icon span:last-child {
+  top: 13px;
+  width: 18px;
+}
+
+.menu-button:hover .menu-icon span:last-child {
+  width: 27px;
+}
+
+/* メニューを開くと二本線が「×」になる */
+.menu-button[aria-expanded="true"] .menu-icon span:first-child {
+  top: 9px;
+  transform: rotate(45deg);
+}
+
+.menu-button[aria-expanded="true"] .menu-icon span:last-child {
+  top: 9px;
+  width: 27px;
+  transform: rotate(-45deg);
+}
 
     .brand {
       color: var(--gold-light);
@@ -91,7 +121,6 @@
       letter-spacing: .16em;
     }
 
-    
 .menu-panel {
   position: fixed;
   z-index: 101;
@@ -134,32 +163,51 @@
 }
 
 
-    .menu-heading {
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid rgba(197,166,106,.4);
-      text-align: center;
-    }
+    
+.menu-heading {
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(197, 166, 106, 0.45);
+  text-align: center;
+}
 
-    .menu-heading p {
-      margin: 0;
-      color: var(--gold-light);
-      letter-spacing: .12em;
-    }
+.menu-flower {
+  margin-bottom: 10px;
+  color: var(--gold-light);
+  font-size: 22px;
+  line-height: 1.5;
+}
 
-    .menu-heading span {
-      color: var(--muted);
-      font-size: 9px;
-      letter-spacing: .2em;
-    }
+.menu-heading p {
+  margin: 0;
+  color: var(--gold-light);
+  font-size: 16px;
+  letter-spacing: 0.15em;
+}
 
-    .menu-panel a {
-      display: block;
-      padding: 13px 5px;
-      border-bottom: 1px solid rgba(197,166,106,.16);
-      font-size: 13px;
-      letter-spacing: .1em;
-    }
+.menu-heading span {
+  display: block;
+  margin-top: 7px;
+  color: #a8adbb;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+
+.menu-panel a {
+  display: block;
+  padding: 15px 8px;
+  border-bottom: 1px solid rgba(197, 166, 106, 0.18);
+  color: var(--paper);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  transition: color 0.25s ease, padding-left 0.25s ease;
+}
+
+.menu-panel a:hover {
+  padding-left: 16px;
+  color: var(--gold-light);
+}
+
 
     .menu-button,
     .menu-panel { isolation: isolate; }
@@ -429,6 +477,26 @@
       .explorer-grid { grid-template-columns: 1fr; }
       .portrait { aspect-ratio: 5 / 4; }
     }
+
+
+.menu-footer {
+  margin-top: 70px;
+  padding-top: 18px;
+  color: rgba(243, 238, 227, 0.55);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  line-height: 2.2;
+}
+
+.menu-footer span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(197, 166, 106, 0.55);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+}
+
+    
   </style>
 </head>
 
@@ -444,18 +512,24 @@
 
     <a class="brand" href="index.html">EXPLORER ARCHIVE</a>
 
-    <nav class="menu-panel" id="menuPanel" aria-label="メインメニュー" inert>
-      
-<div class="menu-heading">
-  <div class="menu-flower" aria-hidden="true">✿</div>
-  <p>探索者図鑑</p>
-  <span>EXPLORER ARCHIVE</span>
-</div>
+    
+<nav class="menu-panel" id="menuPanel" aria-label="メインメニュー" inert>
+  <div class="menu-heading">
+    <div class="menu-flower" aria-hidden="true">✿</div>
+    <p>探索者図鑑</p>
+    <span>EXPLORER ARCHIVE</span>
+  </div>
 
-      <a href="index.html">ホーム</a>
-      <a href="explorers.html">探索者一覧</a>
-      <a href="about.html">このサイトについて</a>
-    </nav>
+  <a href="index.html">ホーム</a>
+  <a href="explorers.html">探索者一覧</a>
+  <a href="about.html">このサイトについて</a>
+
+  <div class="menu-footer">
+    それぞれの物語を、ここに。
+    <span>EXPLORER ARCHIVE</span>
+  </div>
+</nav>
+
   </header>
 
   <main>
