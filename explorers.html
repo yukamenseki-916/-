@@ -673,11 +673,8 @@ const explorers = [
         card.setAttribute("aria-label", `${person.name}の記録`);
 
         const portrait = person.portrait
-          ? `<img src="${escapeHTML(person.portrait)}"
-               alt="${escapeHTML(person.name)}の立ち絵"
-               style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">`
-          : `<span class="portrait-mark" aria-hidden="true">✿</span>
-             <span class="portrait-caption">EXPLORER RECORD</span>`;
+? "<img src="${escapeHTML(person.portrait)}" alt="${escapeHTML(person.name)}の立ち絵" style="width:100%;height:100%;object-fit:${person.id === '002' ? 'contain' : 'cover'};object-position:center;position:absolute;inset:0;${person.id === '002' ? 'transform:scale(0.92);' : 'transform:scale(1.1);'}">"
+: "<span class="portrait-mark" aria-hidden="true">✿</span> <span class="portrait-caption">EXPLORER RECORD</span>";
 
         const scenarios = (person.scenarios || [])
           .map(escapeHTML).join(" ／ ");
