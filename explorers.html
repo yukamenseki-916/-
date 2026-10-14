@@ -41,17 +41,22 @@
 
     button, input, select { font: inherit; }
 
-    /* ヘッダー */
-    .site-header {
+    
+/* ヘッダー */
+.site-header {
   position: absolute;
   z-index: 103;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 6%;
-      border-bottom: 1px solid rgba(197,166,106,.3);
-      background: var(--ink);
-    }
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 22px 6%;
+  border-bottom: 1px solid rgba(197, 166, 106, 0.3);
+  background: var(--ink);
+}
+
 
     .menu-button {
       display: flex;
@@ -86,27 +91,48 @@
       letter-spacing: .16em;
     }
 
-    .menu-panel {
-      position: fixed;
-      z-index: 101;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 320px;
-      max-width: 84vw;
-      padding: 100px 28px 35px;
-      overflow-y: auto;
-      background: #1a2540;
-      border-right: 1px solid rgba(197,166,106,.6);
-      transform: translateX(-105%);
-      visibility: hidden;
-      transition: transform .3s ease, visibility .3s ease;
-    }
+    
+.menu-panel {
+  position: fixed;
+  z-index: 101;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 320px;
+  max-width: 84vw;
+  padding: 105px 30px 35px;
+  overflow-y: auto;
+  border-right: 1px solid rgba(197, 166, 106, 0.65);
+  background: rgba(16, 23, 43, 0.98);
+  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.25);
+  transform: translateX(-105%);
+  visibility: hidden;
+  transition: transform 0.35s ease, visibility 0.35s ease;
+}
 
-    .menu-panel.open {
-      transform: translateX(0);
-      visibility: visible;
-    }
+.menu-panel.open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/* メニュー下部の紹介文 */
+.menu-footer {
+  margin-top: 70px;
+  padding-top: 18px;
+  color: rgba(243, 238, 227, 0.55);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  line-height: 2.2;
+}
+
+.menu-footer span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(197, 166, 106, 0.55);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+}
+
 
     .menu-heading {
       padding-bottom: 20px;
@@ -185,6 +211,15 @@
       font-size: 12px;
       letter-spacing: .06em;
     }
+
+    
+.menu-flower {
+  margin-bottom: 10px;
+  color: var(--gold-light);
+  font-size: 22px;
+  line-height: 1.5;
+}
+
 
     /* 目録本体 */
     .catalog {
@@ -410,10 +445,13 @@
     <a class="brand" href="index.html">EXPLORER ARCHIVE</a>
 
     <nav class="menu-panel" id="menuPanel" aria-label="メインメニュー" inert>
-      <div class="menu-heading">
-        <p>探索者図鑑</p>
-        <span>EXPLORER ARCHIVE</span>
-      </div>
+      
+<div class="menu-heading">
+  <div class="menu-flower" aria-hidden="true">✿</div>
+  <p>探索者図鑑</p>
+  <span>EXPLORER ARCHIVE</span>
+</div>
+
       <a href="index.html">ホーム</a>
       <a href="explorers.html">探索者一覧</a>
       <a href="about.html">このサイトについて</a>
@@ -592,31 +630,45 @@
     setupScenarioFilter();
     renderExplorers();
 
-    const menuButton = document.getElementById("menuButton");
-    const menuPanel = document.getElementById("menuPanel");
+    
+const menuButton = document.getElementById("menuButton");
+const menuPanel = document.getElementById("menuPanel");
 
-    menuButton.addEventListener("click", () => {
-      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
-      menuPanel.classList.toggle("open", !isOpen);
-      menuButton.setAttribute("aria-expanded", String(!isOpen));
-      menuPanel.inert = isOpen;
-    });
+function setMenuOpen(isOpen) {
+  menuPanel.classList.toggle("open", isOpen);
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  menuPanel.inert = !isOpen;
+}
 
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        menuPanel.classList.remove("open");
-        menuButton.setAttribute("aria-expanded", "false");
-        menuPanel.inert = true;
-      }
-    });
+menuButton.addEventListener("click", () => {
+  const isOpen =
+    menuButton.getAttribute("aria-expanded") === "true";
 
-    menuPanel.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        menuPanel.classList.remove("open");
-        menuButton.setAttribute("aria-expanded", "false");
-        menuPanel.inert = true;
-      });
-    });
+  setMenuOpen(!isOpen);
+});
+
+document.addEventListener("click", (event) => {
+  if (
+    menuButton.getAttribute("aria-expanded") === "true" &&
+    !menuButton.contains(event.target) &&
+    !menuPanel.contains(event.target)
+  ) {
+    setMenuOpen(false);
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setMenuOpen(false);
+  }
+});
+
+menuPanel.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    setMenuOpen(false);
+  });
+});
+
   </script>
 </body>
 </html>
