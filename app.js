@@ -1,7 +1,6 @@
 
 const data = window.FESTIVAL_DATA;
 
-const datePills = document.getElementById("date-pills");
 const bandList = document.getElementById("band-list");
 const searchInput = document.getElementById("search");
 const resultCount = document.getElementById("result-count");
@@ -18,8 +17,6 @@ if (!data || !Array.isArray(data.bands)) {
   throw new Error("FESTIVAL_DATA が読み込まれていません。");
 }
 
-// 開催日時の個別表示はしない
-datePills.replaceChildren();
 
 function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, c => ({
