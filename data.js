@@ -52,7 +52,7 @@ window.FESTIVAL_DATA = {
         "堀之内瑛大"
       ],
       "songs": [
-        "アイデア（星野源）"
+        "アイデア"
       ],
       "minutes": 7,
       "availability": "11/5・11/7（6日以外との記載。要確認）",
@@ -87,8 +87,8 @@ window.FESTIVAL_DATA = {
         "牧野光来"
       ],
       "songs": [
-        "東京フラッシュ（Vaundy）",
-        "あなたがいることで（Uru）"
+        "東京フラッシュ",
+        "あなたがいることで"
       ],
       "minutes": 11,
       "availability": "希望なし／未記入",
@@ -105,8 +105,8 @@ window.FESTIVAL_DATA = {
         "三浦琥太郎"
       ],
       "songs": [
-        "感電（米津玄師）",
-        "クランベリーとパンケーキ（米津玄師）"
+        "感電",
+        "クランベリーとパンケーキ"
       ],
       "minutes": 10,
       "availability": "希望なし／未記入",
@@ -394,8 +394,8 @@ window.FESTIVAL_DATA = {
         "若林優希奈"
       ],
       "songs": [
-        "環礁宇宙（日食なつこ）",
-        "white frost（日食なつこ）"
+        "環礁宇宙",
+        "white frost"
       ],
       "minutes": 10,
       "availability": "いつでも（午前中希望）",
@@ -605,8 +605,8 @@ window.FESTIVAL_DATA = {
         "杉光瑛太"
       ],
       "songs": [
-        "Aoi（サカナクション）",
-        "怪獣（サカナクション）"
+        "Aoi",
+        "怪獣"
       ],
       "minutes": 10,
       "availability": "いつでも",
@@ -641,8 +641,8 @@ window.FESTIVAL_DATA = {
         "三浦琥太郎"
       ],
       "songs": [
-        "ひまわりの約束（秦基博）",
-        "ニア（夏代孝明）"
+        "ひまわりの約束",
+        "ニア"
       ],
       "minutes": 10,
       "availability": "11/6 16:30以降不可、11/8 14:00〜15:30不可",
@@ -745,8 +745,8 @@ window.FESTIVAL_DATA = {
         "若林優希奈"
       ],
       "songs": [
-        "マリーゴールド（あいみょん）",
-        "踊り子（Vaundy）"
+        "マリーゴールド",
+        "踊り子"
       ],
       "minutes": 10,
       "availability": "いつでも可",
@@ -780,8 +780,8 @@ window.FESTIVAL_DATA = {
         "後藤夕佳"
       ],
       "songs": [
-        "にじいろ（絢香）",
-        "baby you（有華）"
+        "にじいろ",
+        "baby you"
       ],
       "minutes": 10,
       "availability": "いつでも",
@@ -799,7 +799,7 @@ window.FESTIVAL_DATA = {
       ],
       "songs": [
         "晴る",
-        "ルバート（ヨルシカ）"
+        "ルバート"
       ],
       "minutes": 11,
       "availability": "いつでも",
@@ -817,7 +817,7 @@ window.FESTIVAL_DATA = {
       ],
       "songs": [
         "阿修羅ちゃん",
-        "レディメイド（Ado）"
+        "レディメイド"
       ],
       "minutes": 11,
       "availability": "特になし",
@@ -836,7 +836,7 @@ window.FESTIVAL_DATA = {
       "songs": [
         "花火",
         "キラキラ",
-        "シアワセ（aiko）"
+        "シアワセ"
       ],
       "minutes": 16,
       "availability": "希望なし／未記入",
@@ -871,8 +871,8 @@ window.FESTIVAL_DATA = {
         "牧野光来"
       ],
       "songs": [
-        "虹（Aqua Timez）",
-        "Beautiful（Superfly）"
+        "虹",
+        "Beautiful"
       ],
       "minutes": 10,
       "availability": "いつでも",
@@ -907,8 +907,8 @@ window.FESTIVAL_DATA = {
         "吉村蒼空"
       ],
       "songs": [
-        "アップルティー（杏沙子）",
-        "プラネタリウム（大塚愛）"
+        "アップルティー",
+        "プラネタリウム"
       ],
       "minutes": 10,
       "availability": "いつでも",
@@ -925,8 +925,8 @@ window.FESTIVAL_DATA = {
         "小山敦士"
       ],
       "songs": [
-        "夢見る少女じゃいられない（相川七瀬）",
-        "Over Drive（JUDY AND MARY）"
+        "夢見る少女じゃいられない",
+        "Over Drive"
       ],
       "minutes": 10,
       "availability": "11/6 16:30以降不可、11/8 14:00〜15:30不可",
@@ -942,8 +942,8 @@ window.FESTIVAL_DATA = {
         "日隈野花"
       ],
       "songs": [
-        "瑠璃色の地球（松田聖子）",
-        "笑顔（いきものがかり）"
+        "瑠璃色の地球",
+        "笑顔"
       ],
       "minutes": 10,
       "availability": "いつでも",
@@ -959,9 +959,9 @@ window.FESTIVAL_DATA = {
         "柄本舜史"
       ],
       "songs": [
-        "真夜中のドア〜stay with me（松原みき）",
-        "フライディ・チャイナタウン（泰葉）",
-        "世界中の誰よりきっと（中山美穂）"
+        "真夜中のドア〜stay with me",
+        "フライディ・チャイナタウン",
+        "世界中の誰よりきっと"
       ],
       "minutes": 15,
       "availability": "11/7（土）のみ、いつでも",
@@ -1062,8 +1062,8 @@ window.FESTIVAL_DATA = {
         "高橋真緒"
       ],
       "songs": [
-        "Made You Look（メーガン・トレイナー）",
-        "ハッピー（Pharrell Williams）"
+        "Made You Look",
+        "ハッピー"
       ],
       "minutes": 11,
       "availability": "特になし",
