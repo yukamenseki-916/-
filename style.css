@@ -10,3 +10,22 @@ main{max-width:900px;margin:auto;padding:0 16px}.search-section{padding:34px 0 2
 .band-list{display:grid;grid-template-columns:1fr;gap:13px}.band-card{display:grid;grid-template-columns:112px minmax(0,1fr);gap:15px;background:white;border:1px solid var(--line);border-radius:16px;padding:13px;box-shadow:0 5px 16px #1b2a3b08}.band-photo{width:112px;aspect-ratio:1/1;object-fit:cover;border-radius:11px;background:linear-gradient(145deg,#e8d8b0,#e8dce8);display:block}.photo-placeholder{display:flex;align-items:center;justify-content:center;text-align:center;color:#75684f;font-size:.72rem;overflow-wrap:anywhere;padding:8px}.band-content{min-width:0}.band-top{display:flex;align-items:start;justify-content:space-between;gap:8px}.band-name{font-size:1.08rem;font-weight:800;line-height:1.4;margin:0 0 6px;overflow-wrap:anywhere}.duration{flex-shrink:0;border-radius:8px;background:#f7edcf;color:#775c21;padding:4px 7px;font-size:.72rem;font-weight:700}.meta{font-size:.8rem;color:var(--muted);margin:4px 0}.songs{font-size:.84rem;margin:8px 0 0}.songs strong{color:#8b6b30;font-size:.76rem}.members{font-size:.78rem;line-height:1.7;margin:7px 0 0;color:#465164}.members summary{cursor:pointer;color:#465164}.members p{margin:5px 0 0}.availability{font-size:.75rem;color:#6e5b39;background:#fbf7ed;border-radius:7px;padding:6px 8px;margin-top:8px}.empty{background:white;padding:28px;border-radius:12px;text-align:center;color:var(--muted)}
 footer{text-align:center;background:var(--navy);color:#fff;padding:24px 12px}footer p{font-family:"Playfair Display",serif;letter-spacing:.12em;margin:0 0 5px;color:var(--gold)}footer small{color:#d6dce6}
 @media(min-width:650px){.hero{padding:58px 28px 38px}main{padding:0 24px}.band-list{grid-template-columns:repeat(2,minmax(0,1fr))}.band-card{grid-template-columns:100px minmax(0,1fr);gap:12px;padding:12px}.band-photo{width:100px}.search-section{padding-top:42px}}
+
+.festival-dates {
+  margin-top: 28px;
+  display: grid;
+  gap: 10px;
+}
+
+.festival-dates p {
+  margin: 0;
+  color: #f3eee3;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.festival-dates strong {
+  display: inline-block;
+  min-width: 4.5em;
+  color: #e2c477;
+}
