@@ -457,3 +457,11 @@ footer small {
     padding-top: 42px;
   }
 }
+
+
+
+/* バンド写真を切り取らず、全体を表示する */
+.band-photo {
+  object-fit: contain;
+  background: #f0e8d9;
+}
