@@ -48,17 +48,13 @@ function card(b) {
       alt="${esc(b.name)}の写真"
       loading="lazy"
       onerror="this.outerHTML='<div class=&quot;band-photo photo-placeholder&quot;>PHOTO<br>${esc(b.slug)}.jpg</div>'">
-
     <div class="band-content">
       <div class="band-top">
         <h3 class="band-name">${esc(b.name)}</h3>
         <span class="duration">${b.minutes}分</span>
       </div>
-
       <p class="meta">出演日・時間：調整中</p>
-
       <div class="songs">${songs}</div>
-
       <details class="members">
         <summary>メンバー（${b.members.length}名）</summary>
         <p>${b.members.map(esc).join("、")}</p>
@@ -102,11 +98,7 @@ document.getElementById("clear-search").addEventListener("click", () => {
 
 tabs.forEach(btn => btn.addEventListener("click", () => {
   activeDay = btn.dataset.day;
-
-  tabs.forEach(b =>
-    b.classList.toggle("active", b === btn)
-  );
-
+  tabs.forEach(b => b.classList.toggle("active", b === btn));
   render();
 }));
 
