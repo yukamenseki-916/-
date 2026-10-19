@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17243a">
+  <title>ACAPPELLA LIVE｜学園祭</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">CAMPUS FESTIVAL</p>
+      <h1>ACAPPELLA <span>LIVE</span></h1>
+      <p class="hero-copy">声が重なる、学園祭の3日間。</p>
+      <div class="date-pills" id="date-pills"></div>
+    </div>
+    <div class="spark spark-one">✦</div><div class="spark spark-two">✧</div>
+  </header>
+  <main>
+    <section class="search-section">
+      <p class="section-kicker">FIND YOUR FAVORITE</p>
+      <h2>見たい人・バンドを探す</h2>
+      <label class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input id="search" type="search" placeholder="個人名・バンド名で検索" autocomplete="off">
+        <button id="clear-search" type="button" aria-label="検索をクリア">×</button>
+      </label>
+      <p class="hint">名前やバンド名の一部でも検索できます。</p>
+    </section>
+    <section class="schedule-section">
+      <div class="section-heading">
+        <div><p class="section-kicker">TIMETABLE</p><h2 id="list-title">出演バンド</h2></div>
+        <span id="result-count" class="count"></span>
+      </div>
+      <div class="day-tabs" id="day-tabs">
+        <button class="active" data-day="all">すべて</button>
+        <button data-day="day1">11/6（金）</button>
+        <button data-day="day2">11/7（土）</button>
+        <button data-day="day3">11/8（日）</button>
+      </div>
+      <div class="notice" id="notice">出演時間は調整中です。確定後に順次更新します。</div>
+      <div id="band-list" class="band-list"></div>
+      <p id="empty-state" class="empty" hidden>該当する出演者・バンドが見つかりませんでした。別のキーワードで検索してください。</p>
+    </section>
+  </main>
+  <footer><p>ACAPPELLA LIVE</p><small>出演情報は変更になる場合があります。</small></footer>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
