@@ -843,6 +843,25 @@ window.FESTIVAL_DATA = {
       "slug": "kanmuri-giku"
     },
     {
+      "name": "Petals",
+      "members": [
+        "池田紗倉",
+        "井手口優光",
+        "今井美優",
+        "大野慈峰",
+        "小島千優凛",
+        "富来玲羽"
+      ],
+      "songs": [
+        "星月夜",
+        "好きだ。",
+        "ラブレター"
+      ],
+      "minutes": 16,
+      "availability": "6日・7日・8日、全時間帯",
+      "slug": "petals"
+    },
+    {
       "name": "Kmmmsixsy",
       "members": [
         "今井美優",
