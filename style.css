@@ -467,37 +467,122 @@ footer small {
 }
 
 
+
 /* 日付ごとの出演スケジュール */
 .schedule-day {
   width: 100%;
-  margin-bottom: 32px;
+  margin: 0 0 28px;
 }
 
 .schedule-day-title {
   margin: 0 0 16px;
   padding: 10px 14px;
-  border-left: 4px solid #c5a66a;
-  background: #1a2540;
-  color: #f3eee3;
+  border-left: 4px solid var(--gold);
+  background: var(--navy);
+  color: white;
   font-size: 1.1rem;
 }
 
 .day-band-list {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
+/* 出演カード */
 .schedule-day .band-card {
+  display: grid;
+  grid-template-columns: minmax(100px, 30%) minmax(0, 1fr);
+  align-items: start;
+  gap: 18px;
+  width: 100%;
   min-width: 0;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: white;
+  box-shadow: 0 5px 16px #1b2a3b08;
 }
 
-.schedule-day .meta {
+/* 写真 */
+.schedule-day .band-photo {
+  display: block;
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #f0e8d9;
+}
+
+/* バンド情報 */
+.schedule-day .band-content {
+  min-width: 0;
+  padding: 0;
+}
+
+.schedule-day .band-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.schedule-day .band-name {
+  min-width: 0;
+  margin: 0 0 6px;
   overflow-wrap: anywhere;
 }
 
-@media (min-width: 650px) {
+.schedule-day .duration {
+  flex-shrink: 0;
+}
+
+.schedule-day .meta {
+  margin: 5px 0;
+  overflow-wrap: anywhere;
+}
+
+.schedule-day .songs {
+  margin-top: 10px;
+}
+
+.schedule-day .members {
+  margin-top: 10px;
+}
+
+.schedule-day .availability {
+  margin-top: 8px;
+}
+
+/* 小さなスマートフォン */
+@media (max-width: 380px) {
+  .schedule-day .band-card {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .schedule-day .band-photo {
+    border-radius: 12px;
+  }
+}
+
+/* パソコンでは2列 */
+@media (min-width: 900px) {
   .day-band-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .schedule-day .band-card {
+    grid-template-columns: minmax(90px, 30%) minmax(0, 1fr);
+    gap: 14px;
+    padding: 14px;
   }
 }
