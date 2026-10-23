@@ -586,3 +586,48 @@ footer small {
     padding: 14px;
   }
 }
+
+
+/* バンド名・出演時間・曲名の調整 */
+.schedule-day .band-name {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.schedule-day .band-top {
+  margin-bottom: 4px;
+  gap: 6px;
+}
+
+.schedule-day .meta {
+  margin: 3px 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+/* 出演時間をできるだけ1行にする */
+.schedule-day .band-content > .meta {
+  white-space: nowrap;
+}
+
+/* 演奏曲の間隔 */
+.schedule-day .songs {
+  margin-top: 8px;
+}
+
+.schedule-day .songs p {
+  margin: 2px 0;
+  line-height: 1.55;
+}
+
+/* メンバー欄をコンパクトにする */
+.schedule-day .members {
+  margin-top: 8px;
+}
+
+.schedule-day .members p {
+  display: inline;
+  margin: 0;
+  line-height: 1.7;
+}
