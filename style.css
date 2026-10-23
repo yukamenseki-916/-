@@ -607,7 +607,7 @@ footer small {
 }
 
 /* 出演時間をできるだけ1行にする */
-.schedule-day .band-content > .meta {
+.schedule-day .performance-time {
   white-space: nowrap;
 }
 
