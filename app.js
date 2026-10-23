@@ -44,8 +44,12 @@ function card(band, appearance, day) {
   const endTime = addMinutes(appearance.time, band.minutes);
 
   const songs = band.songs.map((song, index) => `
-    <li>${esc(song)}</li>
-  `).join("");
+  <p><strong>${index + 1}曲目：</strong>${esc(song)}</p>
+`).join("");
+
+const members = band.members.map(member =>
+  esc(member)
+).join("、");
 
   const members = band.members.map(member => `
     <li>${esc(member)}</li>
