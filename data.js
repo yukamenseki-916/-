@@ -54,7 +54,7 @@ window.FESTIVAL_DATA = {
       "songs": [
         "アイデア"
       ],
-      "minutes": 7,
+      "minutes": 5,
       "availability": "11/5・11/7（6日以外との記載。要確認）",
       "slug": "kitsune-no-yomeiri"
     },
@@ -641,8 +641,8 @@ window.FESTIVAL_DATA = {
         "三浦琥太郎"
       ],
       "songs": [
-        "ひまわりの約束",
-        "ニア"
+        "ニア",
+        "ひまわりの約束"
       ],
       "minutes": 10,
       "availability": "11/6 16:30以降不可、11/8 14:00〜15:30不可",
