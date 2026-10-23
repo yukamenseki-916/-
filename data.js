@@ -490,7 +490,7 @@ window.FESTIVAL_DATA = {
       "slug": "albireo"
     },
     {
-      "name": "ARASHI/band!",
+      "name": "嵐band!",
       "members": [
         "寺内大晴",
         "手島朱音",
