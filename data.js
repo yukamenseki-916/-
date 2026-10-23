@@ -916,7 +916,7 @@ window.FESTIVAL_DATA = {
       "slug": "kanikani-club"
     },
     {
-      "name": "it's me！",
+      "name": "It's me！",
       "members": [
         "大野慈峰",
         "富耒玲羽",
