@@ -75,14 +75,13 @@ const members = band.members.map(member =>
         <p class="meta">${esc(dayLabel(day))}</p>
 
         <div class="songs">
-          <strong>演奏曲</strong>
-          <ol>${songs}</ol>
-        </div>
+  ${songs}
+</div>
 
-        <details class="members">
-          <summary>メンバーを見る（${band.members.length}人）</summary>
-          <ul>${members}</ul>
-        </details>
+<details class="members">
+  <summary>メンバーを見る（${band.members.length}人）</summary>
+  <p>${members}</p>
+</details>
       </div>
     </article>
   `;
