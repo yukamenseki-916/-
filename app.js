@@ -39,18 +39,20 @@ function addMinutes(time, minutes) {
   return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
 }
 
+
 function card(band, appearance, day) {
   const img = `images/${encodeURIComponent(band.slug)}.jpg`;
   const endTime = addMinutes(appearance.time, band.minutes);
 
   const songs = band.songs.map((song, index) => `
-  <p><strong>${index + 1}曲目：</strong>${esc(song)}</p>
-`).join("");
+    <p class="song-line">
+      <strong>${index + 1}曲目：</strong>${esc(song)}
+    </p>
+  `).join("");
 
-const members = band.members.map(member =>
-  esc(member)
-).join("、");
-
+  const members = band.members.map(member =>
+    esc(member)
+  ).join("、");
 
   return `
     <article class="band-card">
@@ -64,28 +66,27 @@ const members = band.members.map(member =>
 
       <div class="band-info">
         <div class="band-top">
-          <h3>${esc(band.name)}</h3>
+          <h3 class="band-name">${esc(band.name)}</h3>
           <span class="duration">${esc(band.minutes)}分</span>
         </div>
 
-        <p class="meta">
-          ${esc(appearance.time)}〜${esc(endTime)}
+        <p class="meta performance-time">
+          ${esc(appearance.time)}〜${esc(endTime)}｜${esc(dayLabel(day))}
         </p>
 
-        <p class="meta">${esc(dayLabel(day))}</p>
-
         <div class="songs">
-  ${songs}
-</div>
+          ${songs}
+        </div>
 
-<details class="members">
-  <summary>メンバーを見る（${band.members.length}人）</summary>
-  <p>${members}</p>
-</details>
+        <details class="members">
+          <summary>メンバー（${band.members.length}名）</summary>
+          <p>${members}</p>
+        </details>
       </div>
     </article>
   `;
 }
+
 
 function render() {
   const query = normalize(searchInput.value);
