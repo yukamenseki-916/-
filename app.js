@@ -10,68 +10,77 @@ const tabs = [...document.querySelectorAll(".day-tabs button")];
 
 let activeDay = "all";
 
-// データの読み込み確認
-if (!data || !Array.isArray(data.bands)) {
-  bandList.innerHTML =
-    '<p class="empty">出演者データを読み込めませんでした。data.js の読み込みを確認してください。</p>';
-  throw new Error("FESTIVAL_DATA が読み込まれていません。");
+if (!data || !Array.isArray(data.bands) || !data.schedule) {
+  bandList.textContent = "データを読み込めませんでした。";
+  throw new Error("FESTIVAL_DATA または schedule がありません。");
 }
 
-
-function esc(s) {
-  return String(s ?? "").replace(/[&<>"']/g, c => ({
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
     '"': "&quot;",
     "'": "&#39;"
-  })[c]);
+  })[char]);
 }
 
-function normalize(s) {
-  return String(s ?? "")
-    .toLowerCase()
-    .replace(/\s+/g, "")
-    .replace(/[！!。、・「」『』〜～]/g, "");
+function normalize(value) {
+  return String(value ?? "").toLowerCase().trim();
 }
 
 function dayLabel(day) {
-  const found = data.event.dates.find(d => d.id === day);
-  return found ? found.label : "出演日";
+  return data.event.dates.find(date => date.id === day)?.label ?? day;
 }
 
-function card(b) {
-  const img = `images/${encodeURIComponent(b.slug)}.jpg`;
+function addMinutes(time, minutes) {
+  const [hours, mins] = time.split(":").map(Number);
+  const total = hours * 60 + mins + Number(minutes || 0);
+  return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
+}
 
-  const songs = Array.isArray(b.songs) && b.songs.length
-    ? b.songs.map((s, i) =>
-        `<div>${b.songs.length > 1
-          ? `<strong>${i + 1}曲目：</strong>`
-          : ""}${esc(s)}</div>`
-      ).join("")
-    : "曲名未登録";
+function card(band, appearance, day) {
+  const img = `images/${encodeURIComponent(band.slug)}.jpg`;
+  const endTime = addMinutes(appearance.time, band.minutes);
 
-  const members = Array.isArray(b.members) ? b.members : [];
+  const songs = band.songs.map((song, index) => `
+    <li>${esc(song)}</li>
+  `).join("");
+
+  const members = band.members.map(member => `
+    <li>${esc(member)}</li>
+  `).join("");
 
   return `
     <article class="band-card">
       <img
         class="band-photo"
         src="${img}"
-        alt="${esc(b.name)}の写真"
+        alt="${esc(band.name)}のバンド写真"
         loading="lazy"
-        onerror="this.onerror=null;this.outerHTML='<div class=&quot;band-photo photo-placeholder&quot;>PHOTO</div>'"
+        onerror="this.style.display='none'"
       >
-      <div class="band-content">
+
+      <div class="band-info">
         <div class="band-top">
-          <h3 class="band-name">${esc(b.name)}</h3>
-          <span class="duration">${esc(b.minutes)}分</span>
+          <h3>${esc(band.name)}</h3>
+          <span class="duration">${esc(band.minutes)}分</span>
         </div>
-        <p class="meta">出演日・時間：調整中</p>
-        <div class="songs">${songs}</div>
+
+        <p class="meta">
+          ${esc(appearance.time)}〜${esc(endTime)}
+        </p>
+
+        <p class="meta">${esc(dayLabel(day))}</p>
+
+        <div class="songs">
+          <strong>演奏曲</strong>
+          <ol>${songs}</ol>
+        </div>
+
         <details class="members">
-          <summary>メンバー（${members.length}名）</summary>
-          <p>${members.map(esc).join("、")}</p>
+          <summary>メンバーを見る（${band.members.length}人）</summary>
+          <ul>${members}</ul>
         </details>
       </div>
     </article>
@@ -79,32 +88,63 @@ function card(b) {
 }
 
 function render() {
-  const q = normalize(searchInput.value);
+  const query = normalize(searchInput.value);
+  const days = activeDay === "all"
+    ? data.event.dates
+    : data.event.dates.filter(day => day.id === activeDay);
 
-  const results = data.bands.filter(b => {
-    const matchesDay =
-      activeDay === "all" ||
-      !b.assignedDay ||
-      b.assignedDay === activeDay;
+  let total = 0;
+  let html = "";
 
-    const haystack = normalize([
-      b.name,
-      ...(Array.isArray(b.members) ? b.members : []),
-      ...(Array.isArray(b.songs) ? b.songs : [])
-    ].join(" "));
+  for (const day of days) {
+    const schedule = data.schedule[day.id] || [];
 
-    return matchesDay && (!q || haystack.includes(q));
-  });
+    const appearances = schedule
+      .map(item => ({
+        item,
+        band: data.bands.find(band => band.slug === item.slug)
+      }))
+      .filter(entry => {
+        if (!entry.band) return false;
 
-  bandList.innerHTML = results.map(card).join("");
-  resultCount.textContent = `${results.length}バンド`;
-  emptyState.hidden = results.length !== 0;
+        if (!query) return true;
 
-  listTitle.textContent = q
-    ? "検索結果"
-    : activeDay === "all"
-      ? "出演バンド"
-      : `${dayLabel(activeDay)}の出演バンド`;
+        const searchable = [
+          entry.band.name,
+          ...entry.band.members,
+          ...entry.band.songs
+        ].join(" ");
+
+        return normalize(searchable).includes(query);
+      });
+
+    if (appearances.length === 0) continue;
+
+    total += appearances.length;
+
+    html += `
+      <section class="schedule-day">
+        <h2 class="schedule-day-title">${esc(day.label)}</h2>
+        <div class="day-band-list">
+          ${appearances.map(entry =>
+            card(entry.band, entry.item, day.id)
+          ).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  bandList.innerHTML = html;
+  resultCount.textContent = `${total}出演枠`;
+  emptyState.hidden = total !== 0;
+
+  if (query) {
+    listTitle.textContent = "検索結果";
+  } else if (activeDay === "all") {
+    listTitle.textContent = "出演スケジュール";
+  } else {
+    listTitle.textContent = `${dayLabel(activeDay)}の出演バンド`;
+  }
 }
 
 searchInput.addEventListener("input", render);
@@ -115,10 +155,14 @@ document.getElementById("clear-search").addEventListener("click", () => {
   searchInput.focus();
 });
 
-tabs.forEach(btn => {
-  btn.addEventListener("click", () => {
-    activeDay = btn.dataset.day;
-    tabs.forEach(b => b.classList.toggle("active", b === btn));
+tabs.forEach(button => {
+  button.addEventListener("click", () => {
+    activeDay = button.dataset.day;
+
+    tabs.forEach(tab => {
+      tab.classList.toggle("active", tab === button);
+    });
+
     render();
   });
 });
