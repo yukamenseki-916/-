@@ -135,7 +135,7 @@ window.FESTIVAL_DATA = {
       "members": [
         "寺内大晴",
         "荒木ひなた",
-        "藤谷さな",
+        "藤谷紗菜",
         "牧野光来",
         "小山敦士",
         "柄本舜史",
@@ -339,8 +339,8 @@ window.FESTIVAL_DATA = {
         "柄本舜史"
       ],
       "songs": [
-        "melt bitter",
         "ここで息をして",
+        "melt bitter",
         "たばこ",
         "Automatic"
       ],
@@ -710,7 +710,7 @@ window.FESTIVAL_DATA = {
         "四井咲空"
       ],
       "songs": [
-        "ロマンスを越えよう",
+        "ロマンスをこえよう",
         "シンデレラボーイ"
       ],
       "minutes": 8,
