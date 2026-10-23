@@ -51,9 +51,6 @@ const members = band.members.map(member =>
   esc(member)
 ).join("、");
 
-  const members = band.members.map(member => `
-    <li>${esc(member)}</li>
-  `).join("");
 
   return `
     <article class="band-card">
