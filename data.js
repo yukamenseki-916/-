@@ -232,8 +232,8 @@ window.FESTIVAL_DATA = {
         "木幡有似"
       ],
       "songs": [
-        "渡月橋〜君思ふ",
-        "キミがいれば"
+        "キミがいれば",
+        "渡月橋〜君思ふ"
       ],
       "minutes": 9,
       "availability": "いつでも可",
@@ -519,8 +519,8 @@ window.FESTIVAL_DATA = {
         "原智美"
       ],
       "songs": [
-        "だから、ひとりじゃない",
-        "いつかこの涙が"
+        "いつかこの涙が",
+        "だから、ひとりじゃない"
       ],
       "minutes": 10,
       "availability": "11/7 14:00〜17:00不可",
@@ -659,8 +659,8 @@ window.FESTIVAL_DATA = {
         "志堂寺俊樹"
       ],
       "songs": [
-        "丸の内サディスティック",
-        "GLAMOROUS SKY"
+        "GLAMOROUS SKY",
+        "丸の内サディスティック"
       ],
       "minutes": 8,
       "availability": "7日・8日は14:00まで希望",
@@ -782,8 +782,8 @@ window.FESTIVAL_DATA = {
         "四井咲空"
       ],
       "songs": [
-        "ロマンスをこえよう",
-        "シンデレラボーイ"
+        "シンデレラボーイ",
+        "ロマンスをこえよう"
       ],
       "minutes": 8,
       "availability": "いつでも",
@@ -852,8 +852,8 @@ window.FESTIVAL_DATA = {
         "後藤夕佳"
       ],
       "songs": [
-        "にじいろ",
-        "baby you"
+        "baby you",
+        "にじいろ"
       ],
       "minutes": 10,
       "availability": "いつでも",
@@ -1117,8 +1117,8 @@ window.FESTIVAL_DATA = {
       ],
       "songs": [
         "チェリー",
-        "空も飛べるはず",
-        "ロビンソン"
+        "ロビンソン",
+        "空も飛べるはず"
       ],
       "minutes": 15,
       "availability": "11/6 11:30〜12:00以外どこでも",
