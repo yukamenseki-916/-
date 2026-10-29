@@ -631,3 +631,51 @@ footer small {
   margin: 0;
   line-height: 1.7;
 }
+
+
+/* ページの一番上に戻るボタン */
+#back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 1000;
+
+  width: 52px;
+  height: 52px;
+  border: 1px solid #e8c779;
+  border-radius: 50%;
+
+  background: #17243a;
+  color: #e8c779;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+
+  box-shadow: 0 4px 12px #00000025;
+  cursor: pointer;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s, visibility 0.25s;
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#back-to-top:active {
+  transform: scale(0.95);
+}
+
+/* 小さなスマートフォン */
+@media (max-width: 380px) {
+  #back-to-top {
+    right: 14px;
+    bottom: 18px;
+    width: 46px;
+    height: 46px;
+  }
+}
