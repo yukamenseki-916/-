@@ -679,3 +679,11 @@ footer small {
     height: 46px;
   }
 }
+
+
+/* 検索欄のブラウザ標準クリアボタンを非表示にする */
+.search-box input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
