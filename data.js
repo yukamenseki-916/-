@@ -49,7 +49,7 @@ window.FESTIVAL_DATA = {
     "day2": [
       { "time": "11:05", "slug": "kanmuri-giku" },
       { "time": "11:24", "slug": "kitsune-no-yomeiri" },
-      { "time": "11:29", "slug": "hamorigakari" },
+      { "time": "11:29", "slug": "kmmmsixsy" },
       { "time": "11:39", "slug": "sincere" },
       { "time": "11:49", "slug": "avenue6" },
       { "time": "12:02", "slug": "symphonia" },
@@ -84,7 +84,7 @@ window.FESTIVAL_DATA = {
       { "time": "12:33", "slug": "akage-no-han" },
       { "time": "12:46", "slug": "uchira-acappella-daisuki" },
       { "time": "12:50", "slug": "lucky-clover" },
-      { "time": "13:05", "slug": "kmmmsixsy" },
+      { "time": "13:05", "slug": "hamorigakari" },
       { "time": "13:15", "slug": "kallisti" },
       { "time": "13:27", "slug": "choberi-b" },
       { "time": "13:47", "slug": "cacao-10" },
