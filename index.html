@@ -48,8 +48,29 @@
       <p id="empty-state" class="empty" hidden>該当する出演者・バンドが見つかりませんでした。別のキーワードで検索してください。</p>
     </section>
   </main>
+  
   <footer><p>ACAPPELLA LIVE</p><small>出演情報は変更になる場合があります。</small></footer>
+
+  <button id="back-to-top" type="button" aria-label="ページの一番上に戻る" title="一番上に戻る">
+    ↑
+  </button>
+
   <script src="data.js"></script>
   <script src="app.js"></script>
+  <script>
+    const backToTop = document.getElementById("back-to-top");
+
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("visible", window.scrollY > 300);
+    });
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  </script>
 </body>
 </html>
+
