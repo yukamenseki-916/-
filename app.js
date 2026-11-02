@@ -87,7 +87,28 @@ function card(band, appearance, day) {
   `;
 }
 
+function breakCard(rest) {
+  const [startHour, startMin] = rest.start.split(":").map(Number);
+  const [endHour, endMin] = rest.end.split(":").map(Number);
 
+  const duration =
+    (endHour * 60 + endMin) - (startHour * 60 + startMin);
+
+  return `
+    <div class="break-card">
+      <div class="break-info">
+        <span class="break-label">REST TIME</span>
+        <strong class="break-time">
+          ${esc(rest.start)}〜${esc(rest.end)}
+        </strong>
+        <span class="break-duration">${duration}分間</span>
+      </div>
+      <span class="break-badge">休憩</span>
+    </div>
+  `;
+}
+
+function render() {
 function render() {
   const query = normalize(searchInput.value);
   const days = activeDay === "all"
@@ -123,17 +144,62 @@ function render() {
 
     total += appearances.length;
 
+    let timeline = appearances.map(entry => ({
+      type: "band",
+      time: entry.item.time,
+      entry
+    }));
+
+    // 検索中でない場合のみ休憩時間を追加
+    if (!query) {
+      const breaks = data.breaks?.[day.id] || [];
+
+      timeline.push(
+        ...breaks.map(rest => ({
+          type: "break",
+          time: rest.start,
+          rest
+        }))
+      );
+    }
+
+    // 出演時刻と休憩開始時刻を基準に並べる
+    timeline.sort((a, b) => {
+      return a.time.localeCompare(b.time);
+    });
+
     html += `
       <section class="schedule-day">
         <h2 class="schedule-day-title">${esc(day.label)}</h2>
         <div class="day-band-list">
-          ${appearances.map(entry =>
-            card(entry.band, entry.item, day.id)
-          ).join("")}
+          ${timeline.map(item => {
+            if (item.type === "break") {
+              return breakCard(item.rest);
+            }
+
+            return card(
+              item.entry.band,
+              item.entry.item,
+              day.id
+            );
+          }).join("")}
         </div>
       </section>
     `;
   }
+
+  bandList.innerHTML = html;
+  resultCount.textContent = `${total}出演枠`;
+  emptyState.hidden = total !== 0;
+
+  if (query) {
+    listTitle.textContent = "検索結果";
+  } else if (activeDay === "all") {
+    listTitle.textContent = "出演スケジュール";
+  } else {
+    listTitle.textContent = `${dayLabel(activeDay)}の出演バンド`;
+  }
+}
 
   bandList.innerHTML = html;
   resultCount.textContent = `${total}出演枠`;
