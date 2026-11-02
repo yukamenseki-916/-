@@ -39,7 +39,6 @@ function addMinutes(time, minutes) {
   return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
 }
 
-
 function card(band, appearance, day) {
   const img = `images/${encodeURIComponent(band.slug)}.jpg`;
   const endTime = addMinutes(appearance.time, band.minutes);
@@ -109,7 +108,6 @@ function breakCard(rest) {
 }
 
 function render() {
-function render() {
   const query = normalize(searchInput.value);
   const days = activeDay === "all"
     ? data.event.dates
@@ -150,7 +148,6 @@ function render() {
       entry
     }));
 
-    // 検索中でない場合のみ休憩時間を追加
     if (!query) {
       const breaks = data.breaks?.[day.id] || [];
 
@@ -163,10 +160,7 @@ function render() {
       );
     }
 
-    // 出演時刻と休憩開始時刻を基準に並べる
-    timeline.sort((a, b) => {
-      return a.time.localeCompare(b.time);
-    });
+    timeline.sort((a, b) => a.time.localeCompare(b.time));
 
     html += `
       <section class="schedule-day">
@@ -187,19 +181,6 @@ function render() {
       </section>
     `;
   }
-
-  bandList.innerHTML = html;
-  resultCount.textContent = `${total}出演枠`;
-  emptyState.hidden = total !== 0;
-
-  if (query) {
-    listTitle.textContent = "検索結果";
-  } else if (activeDay === "all") {
-    listTitle.textContent = "出演スケジュール";
-  } else {
-    listTitle.textContent = `${dayLabel(activeDay)}の出演バンド`;
-  }
-}
 
   bandList.innerHTML = html;
   resultCount.textContent = `${total}出演枠`;
